@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ESPN Videos - {{ category }}</title>
+</head>
+<body>
+    <h1>ESPN Videos - {{ category }}</h1>
+
+    <ul>
+        <li><a href="/">All Categories</a></li>
+        <li><a href="/category/wimbledon">Wimbledon</a></li>
+        <li><a href="/category/futbol">Futbol</a></li>
+        <li><a href="/category/nba">NBA</a></li>
+    </ul>
+
+    {% for video in videos %}
+        <div>
+            <h3>{{ video.title }}</h3>
+            <p>{{ video.date }}</p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video.video_id }}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    {% endfor %}
+
+</body>
+</html>
