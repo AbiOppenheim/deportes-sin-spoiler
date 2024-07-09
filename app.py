@@ -1,8 +1,6 @@
 from flask import Flask, render_template
 import scrapetube
 import re
-import spacy
-spacy.cli.download("en_core_web_sm")
 
 app = Flask(__name__)
 
@@ -12,14 +10,15 @@ def index():
 
 # entities recognition
 def get_names(title):
-    nlp = spacy.load('en_core_web_sm')
-    doc = nlp(title)
-    names = []
-    for ent in doc.ents:
-        if ent.label_ == 'PERSON' or ent.label_ == 'ORG':
-            names.append(ent.text)
+    # split title by '|'
+    title = title.split('|')[0]
+    # remove numbers
+    title = re.sub(r'\d+', '', title)
+    # remove parenthesis 
+    title = re.sub(r'\(.*?\)', '', title)
+    names = title.split('-')
+    names = sorted(names)
     return names
-
 
 @app.route('/category/<category_name>')
 def category(category_name):
