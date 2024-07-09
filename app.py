@@ -2,6 +2,7 @@ from flask import Flask, render_template
 import scrapetube
 import re
 import spacy
+spacy.cli.download("en_core_web_sm")
 
 app = Flask(__name__)
 
