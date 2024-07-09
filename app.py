@@ -11,7 +11,7 @@ def index():
 
 @app.route('/category/<category_name>')
 def category(category_name):
-    videos = scrapetube.get_channel(channel_url='https://www.youtube.com/ESPNFans/videos', limit=20)
+    videos = scrapetube.get_channel(channel_url='https://www.youtube.com.ar/tycsports/videos', limit=20)
 
     videosInfo = []
 
