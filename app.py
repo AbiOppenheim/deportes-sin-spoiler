@@ -40,12 +40,12 @@ def category(category_name):
             date = video['publishedTimeText']['simpleText']
             video_category = None
             redex = re.search(r'\d+(\s*\(.*?\))?\s*-\s*(\(.*?\)\s*)?\d+', title)
-            if 'wimbledon' in title:
-                video_category = 'wimbledon'
+            if 'wimbledon' in title.lower():
+                video_category = 'Wimbledon'
             elif 'liga' in title.lower() or redex:
-                video_category = 'futbol'
+                video_category = 'Fútbol'
             elif 'nba' in title.lower():
-                video_category = 'nba'
+                video_category = 'NBA'
             
             negatives = ['dijo', 'dijeron', 'entrevista', 'conferencia', 'habla', 'hablan', 'habló', 'hablaron', 'hablando', 'hablaba']
             if any(negative in title.lower() for negative in negatives):
@@ -53,6 +53,7 @@ def category(category_name):
             
             # using SpaCy to get the names of the players or teams
             names = get_names(title)
+            presentation = 'vs '.join(names) if names else title
             
             if names and video_category == category_name:
                 videosInfo.append({
@@ -60,7 +61,7 @@ def category(category_name):
                     'title': title,
                     'date': date,
                     'category': video_category,
-                    'names': names
+                    'presentation': presentation
                 })
 
     return render_template('category.html', videos=videosInfo, category=category_name)

@@ -49,13 +49,17 @@
             margin-bottom: 20px;
         }
 
+        .wrapper {
+            overflow: hidden;
+            max-width: 100%;
+        }
+
         .frame-container {
             position: relative;
             padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
-            max-width: 100%;
-            background: #000;
+            padding-top: 25px;
+            width: 300%; /* enlarge beyond browser width */
+            left: -100%; /* center */
         }
 
         .frame-container iframe {
@@ -89,20 +93,22 @@
     <nav>
         <ul>
             <li><a href="/">All Categories</a></li>
-            <li><a href="/category/wimbledon">Wimbledon 🎾</a></li>
-            <li><a href="/category/futbol">Futbol ⚽️️️</a></li>
-            <li><a href="/category/nba">NBA 🏀</a></li>
+            <li><a href="/category/Wimbledon">Wimbledon 🎾</a></li>
+            <li><a href="/category/Fútbol">Futbol ⚽️️️</a></li>
+            <li><a href="/category/NBA">NBA 🏀</a></li>
         </ul>
     </nav>
 
     <div class="content">
         {% for video in videos %}
             <div class="video-container">
-                <h3>{{ video.title }}</h3>
-                <h3>{{ video.names }}</h3>
+                <!-- <h3>{{ video.title }}</h3> -->
+                <h2>{{ video.presentation}}</h2>
                 <p>{{ video.date }}</p>
-                <div class="frame-container">
-                    <iframe src="https://www.youtube.com/embed/{{ video.video_id }}" frameborder="0" allowfullscreen></iframe>
+                <div class="wrapper">
+                    <div class="frame-container">
+                        <iframe src="https://www.youtube.com/embed/{{ video.video_id }}?controls=1&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&fs=1" frameborder="0" allow="fullscreen"></iframe>
+                    </div>
                 </div>
             </div>
         {% endfor %}
