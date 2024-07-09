@@ -2,25 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ESPN Videos - {{ category }}</title>
+    <title>Deportes sin spoiler - {{ category }}</title>
 </head>
+<style>
+    .frame-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    width: 300%; /* enlarge beyond browser width */
+    left: -100%; /* center */
+}
+
+    .frame-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+</style>
 <body>
-    <h1>ESPN Videos - {{ category }}</h1>
+    <h1>Deportes sin spoiler - {{ category }}</h1>
 
     <ul>
         <li><a href="/">All Categories</a></li>
-        <li><a href="/category/wimbledon">Wimbledon</a></li>
-        <li><a href="/category/futbol">Futbol</a></li>
-        <li><a href="/category/nba">NBA</a></li>
+        <li><a href="/category/wimbledon">Wimbledon 🎾</a></li>
+        <li><a href="/category/futbol">Futbol ⚽️️️</a></li>
+        <li><a href="/category/nba">NBA 🏀</a></li>
     </ul>
 
     {% for video in videos %}
         <div>
-            <h3>{{ video.title }}</h3>
+<!--            <h3>{{ video.title }}</h3>-->
+            <h3>{{ video.names }}</h3>
             <p>{{ video.date }}</p>
-            <p>{{ video.names }}</p>
 
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video.video_id }}" frameborder="0" allowfullscreen></iframe>
+<!--            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video.video_id }}" frameborder="0" allowfullscreen></iframe>-->
+            <div class="frame-container">
+                <iframe src="https://www.youtube.com/embed/{{ video.video_id }}" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
     {% endfor %}
 

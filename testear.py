@@ -1,12 +1,5 @@
-from flask import Flask, render_template
 import scrapetube
 import re
-
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 # entities recognition
 def get_names(title):
@@ -25,12 +18,12 @@ def get_names(title):
         names = sorted(names)
     return names
 
-@app.route('/category/<category_name>')
-def category(category_name):
+
+def main(category_name):
     videosInfo = []
     urls = [
         'https://www.youtube.com.ar/tycsports/videos',
-        'https://www.youtube.com.ar/espndeportes/videos'
+        'https://www.youtube.com.ar/user/espndeportes/videos'
     ]
     for url in urls:
         videos = scrapetube.get_channel(channel_url=url, limit=50)
@@ -63,7 +56,7 @@ def category(category_name):
                     'names': names
                 })
 
-    return render_template('category.html', videos=videosInfo, category=category_name)
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    main('futbol')

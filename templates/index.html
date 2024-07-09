@@ -1,17 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+
+.multi-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 300px;
+  padding: 10px 16px;
+  border-radius: 50px;
+  background: #d5d5d5;
+  border: 2px solid #ddd;
+  box-shadow: 5px 10px #191919;
+}
+.tennis {
+  background: url(https://upload.wikimedia.org/wikipedia/commons/3/36/Tennis_ball_3.svg);
+  background-size: 100px 100px;
+  height: 100px;
+  width: 100px;
+    border: 2px solid transparent;
+
+}
+.futbol {
+  background: url(http://upload.wikimedia.org/wikipedia/en/e/ec/Soccer_ball.svg);
+  background-size: 100px 100px;
+  height: 100px;
+  width: 100px;
+    border: 2px solid transparent;
+
+}
+.basketball {
+  /*  https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Basketball_Clipart.svg/120px-Basketball_Clipart.svg.png?20221009012348*/
+  background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Basketball_Clipart.svg/120px-Basketball_Clipart.svg.png?20221009012348);
+  background-size: 100px 100px;
+  height: 100px;
+  width: 100px;
+    border: 2px solid transparent;
+}
+</style>
 <head>
     <meta charset="UTF-8">
-    <title>ESPN Categories</title>
+    <title>Deportes sin spoiler</title>
 </head>
 <body>
     <h1>ESPN Categories</h1>
-
-    <ul>
-        <li><a href="/category/wimbledon">Wimbledon</a></li>
-        <li><a href="/category/futbol">Futbol</a></li>
-        <li><a href="/category/nba">NBA</a></li>
-    </ul>
-
+    <div class="multi-button">
+        <button class="tennis"></button>
+        <button class="futbol"></button>
+        <button class="basketball"></button>
+    </div>
+    <script>
+        document.querySelector('.tennis').addEventListener('click', () => {
+            window.location.href = '/category/wimbledon';
+        });
+        document.querySelector('.futbol').addEventListener('click', () => {
+            window.location.href = '/category/futbol';
+        });
+        document.querySelector('.basketball').addEventListener('click', () => {
+            window.location.href = '/category/nba';
+        });
+    </script>
 </body>
 </html>
