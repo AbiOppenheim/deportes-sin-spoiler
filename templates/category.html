@@ -73,13 +73,16 @@
 
         .wrapper {
             position: relative;
+            overflow: hidden;
+            max-width: 100%;
             cursor: pointer;
         }
 
         .frame-container {
             position: relative;
             padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
+            width: 300%; /* enlarge beyond browser width */
+            left: -100%; /* center */
         }
 
         .frame-container iframe {
@@ -145,6 +148,14 @@
             }
         }
 
+        function loadVideo(videoId, element) {
+            setTimeout(() => {
+                element.innerHTML = '<div class="frame-container">' +
+                                    '<iframe src="https://www.youtube.com.ar/embed/' + videoId + '?autoplay=1&controls=1&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&fs=1&start=2" frameborder="0" allowfullscreen></iframe>' +
+                                    '</div>';
+            }, 0); // No delay, just immediate loading
+        }
+
         window.addEventListener('resize', checkOrientation);
         window.addEventListener('load', checkOrientation);
     </script>
@@ -188,13 +199,5 @@
             </div>
         {% endfor %}
     </div>
-
-    <script>
-        function loadVideo(videoId, element) {
-            element.innerHTML = '<div class="frame-container">' +
-                                '<iframe src="https://www.youtube.com.ar/embed/' + videoId + '?autoplay=1&controls=1&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&fs=1" frameborder="0" allowfullscreen></iframe>' +
-                                '</div>';
-        }
-    </script>
 </body>
 </html>
