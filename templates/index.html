@@ -1,49 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
-
-.multi-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 300px;
-  padding: 10px 16px;
-  border-radius: 50px;
-  background: #d5d5d5;
-  border: 2px solid #ddd;
-  box-shadow: 5px 10px #191919;
-}
-.tennis {
-  background: url(https://upload.wikimedia.org/wikipedia/commons/3/36/Tennis_ball_3.svg);
-  background-size: 100px 100px;
-  height: 100px;
-  width: 100px;
-    border: 2px solid transparent;
-
-}
-.futbol {
-  background: url(http://upload.wikimedia.org/wikipedia/en/e/ec/Soccer_ball.svg);
-  background-size: 100px 100px;
-  height: 100px;
-  width: 100px;
-    border: 2px solid transparent;
-
-}
-.basketball {
-  /*  https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Basketball_Clipart.svg/120px-Basketball_Clipart.svg.png?20221009012348*/
-  background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Basketball_Clipart.svg/120px-Basketball_Clipart.svg.png?20221009012348);
-  background-size: 100px 100px;
-  height: 100px;
-  width: 100px;
-    border: 2px solid transparent;
-}
-</style>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deportes sin spoiler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .multi-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .multi-button button {
+            background-size: cover;
+            height: 100px;
+            width: 100px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .multi-button button:hover {
+            transform: scale(1.1);
+        }
+
+        .tennis {
+            background: url(https://upload.wikimedia.org/wikipedia/commons/3/36/Tennis_ball_3.svg);
+        }
+
+        .futbol {
+            background: url(http://upload.wikimedia.org/wikipedia/en/e/ec/Soccer_ball.svg);
+        }
+
+        .basketball {
+            background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Basketball_Clipart.svg/120px-Basketball_Clipart.svg.png?20221009012348);
+        }
+
+        @media (min-width: 600px) {
+            .multi-button {
+                flex-direction: row;
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>ESPN Categories</h1>
+    <!-- **deportes sin spoiler** in a rectangle with a different color -->
+    <h1>Categorías de <span style="color: rgb(0, 0, 0);">Deportes Sin Spoiler</span></h1>
+    
     <div class="multi-button">
         <button class="tennis"></button>
         <button class="futbol"></button>
