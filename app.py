@@ -47,7 +47,7 @@ def category(category_name):
                 'video_id': video_id,
                 'title': title,
                 'date': date,
-                'category': video_category
+                'category': video_category,
                 'names': names
             })
 
