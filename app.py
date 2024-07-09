@@ -33,7 +33,7 @@ def category(category_name):
         'https://www.youtube.com.ar/espndeportes/videos'
     ]
     for url in urls:
-        videos = scrapetube.get_channel(channel_url=url, limit=50)
+        videos = scrapetube.get_channel(channel_url=url, limit=100)
         for video in videos:
             video_id = video['videoId']
             title = video['title']['runs'][0]['text']
