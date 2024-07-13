@@ -1,62 +1,31 @@
-import scrapetube
 import re
 
-# entities recognition
-def get_names(title):
-    # split title by '|'
-    title = title.split('|')[0]
-    # remove numbers
-    title = re.sub(r'\d+', '', title)
-    # remove parenthesis 
-    title = re.sub(r'\(.*?\)', '', title)
-    names = None
-    if '-' in title:
-        names = title.split('-')
-    if 'vs' in title:
-        names = title.split('vs')
-    if names:
-        names = sorted(names)
-    return names
+examples = [
+    ("Barbora Krejcikova y Elena Rybakina", ['Barbora Krejcikova', 'Elena Rybakina']),
+    ("¡PAOLINI ES FINALISTA! Jasmine Paolini con Donna Vekic", ['Jasmine Paolini', 'Donna Vekic']),
+    ("WIMBLEDON: Barbora Krejcikova se corona como CAMPEONA tras derrotar a Jasmine Paolini", ['Barbora Krejcikova', 'Jasmine Paolini']),
+]
 
 
-def main(category_name):
-    videosInfo = []
-    urls = [
-        'https://www.youtube.com.ar/tycsports/videos',
-        'https://www.youtube.com.ar/user/espndeportes/videos'
-    ]
-    for url in urls:
-        videos = scrapetube.get_channel(channel_url=url, limit=50)
-        for video in videos:
-            video_id = video['videoId']
-            title = video['title']['runs'][0]['text']
-            date = video['publishedTimeText']['simpleText']
-            video_category = None
-            redex = re.search(r'\d+(\s*\(.*?\))?\s*-\s*(\(.*?\)\s*)?\d+', title)
-            if 'wimbledon' in title:
-                video_category = 'wimbledon'
-            elif 'liga' in title.lower() or redex:
-                video_category = 'futbol'
-            elif 'nba' in title.lower():
-                video_category = 'nba'
-            
-            negatives = ['dijo', 'dijeron', 'entrevista', 'conferencia', 'habla', 'hablan', 'habló', 'hablaron', 'hablando', 'hablaba']
-            if any(negative in title.lower() for negative in negatives):
-                continue
-            
-            # using SpaCy to get the names of the players or teams
-            names = get_names(title)
-            
-            if names and video_category == category_name:
-                videosInfo.append({
-                    'video_id': video_id,
-                    'title': title,
-                    'date': date,
-                    'category': video_category,
-                    'names': names
-                })
+for example in examples:
+    """
+    Recognize person1 and person2 in a string. Where each person has a name and a surname. Both beggining with a capital letter.
+    Exaples:
+    - WIMBLEDON: Barbora Krejcikova se corona como CAMPEONA tras derrotar a Jasmine Paolini" -> ['Barbora Krejcikova', 'Jasmine Paolini']
+    - "¡PAOLINI ES FINALISTA! Jasmine Paolini con Donna Vekic" -> ['Jasmine Paolini', 'Donna Vekic']
+    - "Barbora Krejcikova y Elena Rybakina" -> ['Barbora Krejcikova', 'Elena Rybakina']
+    """
+    nameAndSurname = r'([A-Z][a-z]+ [A-Z][a-z]+)'
+    # match nameAndSurname followed by anything and then nameAndSurname
+    pattern = rf'{nameAndSurname}.*{nameAndSurname}'
+    match = re.search(pattern, example[0])
 
+    if match:
+        name1 = match.group(1)
+        name2 = match.group(2)
 
+        print([match.group(i) for i in range(1, 3)])
+        assert [name1, name2] == example[1], f"Expected: {example[1]}, got: {name1}, {name2}"
+    else:
+        print("No match")
 
-if __name__ == '__main__':
-    main('futbol')
