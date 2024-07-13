@@ -9,8 +9,6 @@ from datetime import datetime, timedelta
 supabase_url = os.environ.get("SUPABASE_URL")
 supabase_key = os.environ.get("SUPABASE_KEY")
 
-# supabase_url = "https://tqpvdmpvlqckotutlthl.supabase.co"
-# supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRxcHZkbXB2bHFja290dXRsdGhsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjA1NTI2NDEsImV4cCI6MjAzNjEyODY0MX0.DD3Czp59WZGRdV8DcBpFuv_5zGi6nmy9Fw5b9NA19q0"
 supabase = create_client(supabase_url, supabase_key)
 
 # Authenticate (if using authentication)
