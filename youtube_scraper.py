@@ -47,13 +47,9 @@ def get_names(title, channel):
 
 def update_database():
     videosInfo = []
-    urls = [
-        'https://www.youtube.com.ar/tycsports/videos',
-        'https://www.youtube.com.ar/espndeportes/videos'
-    ]
-    for url in urls:
-        channel = url.split('/')[-2]
-        videos = scrapetube.get_channel(channel_url=url, limit=200)
+    channels = [ 'tycsports', 'espndeportes', 'ESPNFans']
+    for channel in channels:
+        videos = scrapetube.get_channel(channel_url=f'https://www.youtube.com.ar/{channel}/videos', limit=200)
         for video in videos:
             video_id = video['videoId']
             title = video['title']['runs'][0]['text']
