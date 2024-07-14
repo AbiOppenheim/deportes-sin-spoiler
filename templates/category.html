@@ -187,9 +187,9 @@
                 <h3>{{ video.presentation }}</h3>
                 <p>{{ video.date }}</p>
                 <div class="wrapper" onclick="loadVideo('{{ video.video_id }}', this)">
-                    {% if category == 'wimbledon' %}
+                    {% if category == 'Wimbledon' %}
                         <img class="thumbnail" src="https://www.ambito.com/deportes/wimbledon-2024-los-premios-los-candidatos-y-todo-lo-que-hay-que-saber-del-torneo-tenis-cesped-mas-importante-del-mundo-n6020484" alt="Wimbledon Thumbnail">
-                    {% elif category == 'nba' %}
+                    {% elif category == 'NBA' %}
                         <img class="thumbnail" src="https://elordenmundial.com/nba-marca-comercial-politica-ee-uu-canchas-baloncesto" alt="NBA Thumbnail">
                     {% else %}
                         <img class="thumbnail" src="https://lh3.googleusercontent.com/proxy/9aSlnaV6YvrokOf_S9r71-Cn1w49lqeVXQeO7qwjsIWHWK4iIYgn4IYMs2Dt47PC8MbFuqCA9lnFu_F2RmwJBa3Zdo5IGk3VjTxHuaYNyFtBo7OVB8H6kYTVMi9BD5ctW6M6qznKiEpscLrp1Oh2CcQ3R7POxQP0zfRs1xZCPIgjHtnFQ7cOcFBPw8p8M3ThBWr3cswSVGL_f1XLyWeIK5SCrn0Zhw" alt="{{ video.title }}">
