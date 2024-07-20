@@ -6,7 +6,7 @@
     <title>Deportes sin spoiler - {{ category }}</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
             margin: 0;
             padding: 0;
             display: flex;
@@ -15,38 +15,7 @@
             background-color: #f0f0f0;
         }
 
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            width: 100%;
-        }
-
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            background-color: #444;
-            width: 100%;
-        }
-
-        nav ul li {
-            margin: 0 10px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            display: block;
-        }
-
-        nav ul li a:hover {
-            background-color: #555;
-        }
+        /* ... (keep other existing styles) ... */
 
         .content {
             padding: 20px;
@@ -54,87 +23,79 @@
             max-width: 1200px;
         }
 
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
         .video-container {
             margin-bottom: 20px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .video-container h3 {
-            margin-top: 0;
-            color: #333;
-        }
-
-        .video-container p {
-            color: #666;
-        }
-
-        .wrapper {
-            position: relative;
-            overflow: hidden;
-            max-width: 100%;
+        .button-28 {
+            appearance: none;
+            background-color: transparent;
+            border: 2px solid #1A1A1A;
+            border-radius: 15px;
+            box-sizing: border-box;
+            color: #3B3B3B;
             cursor: pointer;
-        }
-
-        .frame-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            width: 300%; /* enlarge beyond browser width */
-            left: -100%; /* center */
-        }
-
-        .frame-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+            display: inline-block;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: normal;
+            margin: 0;
+            min-height: 60px;
+            min-width: 0;
+            outline: none;
+            padding: 16px 24px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
             width: 100%;
-            height: 100%;
+            will-change: transform;
         }
 
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 68px;
-            height: 48px;
-            background: url('https://img.icons8.com/ios-filled/100/000000/play-button-circled.png') no-repeat center;
-            background-size: contain;
+        .button-28:disabled {
             pointer-events: none;
         }
 
-        .thumbnail {
-            display: block;
-            width: 100%;
-            border-radius: 10px;
+        .button-28:hover {
+            color: #fff;
+            background-color: #1A1A1A;
+            box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+            transform: translateY(-2px);
         }
 
-        .orientation-message {
-            display: none;
-            background: black;
-            color: white;
-            width: 100%;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
+        .button-28:active {
+            box-shadow: none;
+            transform: translateY(0);
+        }
+
+        .button-28 h3 {
+            margin: 0 0 10px 0;
+        }
+
+        .button-28 p {
+            margin: 0;
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        @media (max-width: 900px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 600px) {
-            nav ul {
-                flex-direction: column;
-            }
-
-            nav ul li {
-                margin: 5px 0;
-            }
-
-            .video-container h3, .video-container p {
-                font-size: 1em;
+            .video-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -147,14 +108,41 @@
                 orientationMessage.style.display = 'none';
             }
         }
+        function loadVideo(videoId, button) {
+            const container = button.closest('.video-container');
+            container.innerHTML = '<div class="frame-container">' +
+                                  '<iframe src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&controls=1&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&fs=1&start=2" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>' +
+                                  '</div>';
 
-        function loadVideo(videoId, element) {
-            setTimeout(() => {
-                element.innerHTML = '<div class="frame-container">' +
-                                    '<iframe src="https://www.youtube.com.ar/embed/' + videoId + '?autoplay=1&controls=1&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&fs=1&start=2" frameborder="0" allowfullscreen></iframe>' +
-                                    '</div>';
-            }, 0); // No delay, just immediate loading
+            const iframe = container.querySelector('iframe');
+
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
         }
+        function handleFullscreenChange() {
+            const iframe = document.querySelector('.frame-container iframe');
+            if (iframe) {
+                if (!document.fullscreenElement &&
+                    !document.mozFullScreenElement &&
+                    !document.webkitFullscreenElement &&
+                    !document.msFullscreenElement) {
+                    // Exit full screen
+                    iframe.src = iframe.src.replace('&fs=1', '');
+                }
+            }
+        }
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('msfullscreenchange', handleFullscreenChange);
 
         window.addEventListener('resize', checkOrientation);
         window.addEventListener('load', checkOrientation);
@@ -182,22 +170,16 @@
     </nav>
 
     <div class="content">
-        {% for video in videos %}
-            <div class="video-container">
-                <h3>{{ video.presentation }}</h3>
-                <p>{{ video.date }}</p>
-                <div class="wrapper" onclick="loadVideo('{{ video.video_id }}', this)">
-                    {% if category == 'Wimbledon' %}
-                        <img class="thumbnail" src="https://www.ambito.com/deportes/wimbledon-2024-los-premios-los-candidatos-y-todo-lo-que-hay-que-saber-del-torneo-tenis-cesped-mas-importante-del-mundo-n6020484" alt="Wimbledon Thumbnail">
-                    {% elif category == 'NBA' %}
-                        <img class="thumbnail" src="https://elordenmundial.com/nba-marca-comercial-politica-ee-uu-canchas-baloncesto" alt="NBA Thumbnail">
-                    {% else %}
-                        <img class="thumbnail" src="https://lh3.googleusercontent.com/proxy/9aSlnaV6YvrokOf_S9r71-Cn1w49lqeVXQeO7qwjsIWHWK4iIYgn4IYMs2Dt47PC8MbFuqCA9lnFu_F2RmwJBa3Zdo5IGk3VjTxHuaYNyFtBo7OVB8H6kYTVMi9BD5ctW6M6qznKiEpscLrp1Oh2CcQ3R7POxQP0zfRs1xZCPIgjHtnFQ7cOcFBPw8p8M3ThBWr3cswSVGL_f1XLyWeIK5SCrn0Zhw" alt="{{ video.title }}">
-                    {% endif %}
-                    <div class="play-button"></div>
+        <div class="video-grid">
+            {% for video in videos %}
+                <div class="video-container">
+                    <button class="button-28" role="button" onclick="loadVideo('{{ video.video_id }}', this)">
+                        <h3>{{ video.presentation }}</h3>
+                        <p>{{ video.date }}</p>
+                    </button>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>

@@ -17,6 +17,29 @@ supabase = create_client(supabase_url, supabase_key)
 #   "provider": 'github'
 # })
 
+def toTimestamp(publishedTimeText):
+    singular = ['minute', 'hour', 'day', 'week', 'month']
+    if 'ago' in publishedTimeText:
+        for word in singular:
+            if word in publishedTimeText:
+                publishedTimeText = publishedTimeText.replace(word, word + 's')
+        if 'minutes' in publishedTimeText:
+            minutes = int(re.search(r'\d+', publishedTimeText).group())
+            return datetime.now() - timedelta(minutes=minutes)
+        elif 'hours' in publishedTimeText:
+            hours = int(re.search(r'\d+', publishedTimeText).group())
+            return datetime.now() - timedelta(hours=hours)
+        elif 'days' in publishedTimeText:
+            days = int(re.search(r'\d+', publishedTimeText).group())
+            return datetime.now() - timedelta(days=days)
+        elif 'weeks' in publishedTimeText:
+            weeks = int(re.search(r'\d+', publishedTimeText).group())
+            return datetime.now() - timedelta(weeks=weeks)
+        elif 'months' in publishedTimeText:
+            months = int(re.search(r'\d+', publishedTimeText).group())
+            return datetime.now() - timedelta(weeks=months*4)
+    else:
+        return datetime.strptime(publishedTimeText, "%b %d, %Y")
 
 def get_names(title, channel):
     if channel == 'tycsports':
@@ -43,11 +66,13 @@ def get_names(title, channel):
             return name1, name2
         else:
             return None
+    elif channel == 'ESPNFans':
+        return title
     return None
 
 def update_database():
     videosInfo = []
-    channels = [ 'tycsports', 'espndeportes', 'ESPNFans']
+    channels = ['tycsports', 'espndeportes', 'ESPNFans']
     for channel in channels:
         videos = scrapetube.get_channel(channel_url=f'https://www.youtube.com.ar/{channel}/videos', limit=200)
         for video in videos:
@@ -67,12 +92,13 @@ def update_database():
                 continue
 
             presentation = ' vs '.join(names) if names else title
-            
+
+            time = toTimestamp(publishedTimeText).strftime("%Y-%m-%d %H:%M:%S")
             video_info = {
                 "id": 1,
                 'video_id': video_id,
                 'title': title,
-                'publishedTimeText': publishedTimeText,
+                'publishedTimeText': time,
                 'category': video_category,
                 'presentation': presentation,
                 'channel' : channel,
